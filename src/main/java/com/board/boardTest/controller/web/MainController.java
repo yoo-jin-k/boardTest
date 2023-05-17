@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Slf4j
 @Controller
-public class BoardMainController {
+public class MainController {
 
     @GetMapping("/main")
     public String main(Model model) {
-        model.addAttribute("test","main");
+        model.addAttribute("main","main");
         return "main";
     }
 }
