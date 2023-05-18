@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface BoardService {
 
+    public int maxNum(int num) throws Exception;
+
     public List<Board> selectAll() throws Exception;
 
     public int selectBoardId(int num) throws Exception;

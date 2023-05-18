@@ -16,6 +16,11 @@ public class BoardServiceImpl implements BoardService {
     private BoardMapper boardMapper;
 
     @Override
+    public int maxNum(int num) throws Exception {
+        return boardMapper.maxNum(num);
+    }
+
+    @Override
     public List<Board> selectAll() throws Exception {
         return boardMapper.selectBoardList();
     }

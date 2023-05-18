@@ -8,6 +8,8 @@ import java.util.List;
 @Mapper
 public interface BoardMapper {
 
+    public int maxNum(int num) throws Exception;
+
     List<Board> selectBoardList() throws Exception;
 
     Board selectReadData(int boardId) throws Exception;
