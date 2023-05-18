@@ -1,60 +1,24 @@
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:log4jdbc:mysql://192.168.0.200:3309/mc_cost
+    url: jdbc:mariadb://192.168.0.200:3309/test_check
     username: root
     password: qwer1234!@
+  thymeleaf:
+    cache: true
+    check-template: true
+    prefix: classpath:templates/
+    suffix: .html
+  mvc:
+    static-path-pattern: /static/**
 
-    thymeleaf:
-      cache: false
-      check-template: true
-      prefix: classpath:templates/
-      suffix: .html
-
-      mvc:
-        static-path-pattern: "/static/**"
-        pathmatch:
-          matching-strategy: ant_path_matcher
-      devtools:
-        livereload:
-          enabled: true
-        restart:
-          enabled: true
-
-      main:
-        allow-bean-definition-overriding: true
-
-        mybatis:
-          type-aliases-package: com.board.boardTest.persistence.dto, com.board.boardTest.persistence.dto.system, com.board.boardTest.persistence.model
-          type-handlers-package: com.board.boardTest.config
-          configuration:
-            map-underscore-to-camel-case: true
-            default-fetch-size: 100
-            default-statement-timeout: 30
-          mapper-locations: "classpath*:/com/board/boardTest/**/*.xml"
-
-        server:
-          port: 8080
-          error:
-            whitelabel:
-              enabled: false
-          tomcat:
-            basedir: ./
-        #    accesslog:
-        #      enabled: true
-        #      pattern: "%t %a %s \"%r\" %b (%D ms)"
-        #      directory: log
-        #      suffix: .log
-        #      prefix: access
-
-
-        logging:
-          level:
-            org:
-              hibernate:
-                type:
-                  descriptor:
-                    sql: off
+mybatis:
+  type-aliases-package: com.board.boardTest.persistence
+  configuration:
+    map-underscore-to-camel-case: true
+    default-fetch-size: 100
+    default-statement-timeout: 30
+  mapper-locations: classpath:/board/mapper/*.xml
 
 
 

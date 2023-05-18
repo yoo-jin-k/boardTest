@@ -1,1 +1,9 @@
-C:\Users\mecca\Desktop\김유진\studyTest\boardTest\src\main\java\com\board\boardTest\BoardTestApplication.java
+C:\deve\boardTest-22\src\main\java\com\board\boardTest\service\BoardService.java
+C:\deve\boardTest-22\src\main\java\com\board\boardTest\persistence\model\Board.java
+C:\deve\boardTest-22\src\main\java\com\board\boardTest\BoardTestApplication.java
+C:\deve\boardTest-22\src\main\java\com\board\boardTest\controller\web\TestController.java
+C:\deve\boardTest-22\src\main\java\com\board\boardTest\persistence\dto\BoardDTO.java
+C:\deve\boardTest-22\src\main\java\com\board\boardTest\controller\web\MainController.java
+C:\deve\boardTest-22\src\main\java\com\board\boardTest\controller\web\BoardController.java
+C:\deve\boardTest-22\src\main\java\com\board\boardTest\mapper\BoardMapper.java
+C:\deve\boardTest-22\src\main\java\com\board\boardTest\service\Impl\BoardServiceImpl.java

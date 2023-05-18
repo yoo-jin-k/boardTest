@@ -2,12 +2,14 @@ package com.board.boardTest.persistence.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public class BoardDTO {
 
-    private Long boardId;
+    private int num;
 
     private String title;
 
@@ -17,5 +19,4 @@ public class BoardDTO {
 
     private int hit;
 
-    private String create;
 }
