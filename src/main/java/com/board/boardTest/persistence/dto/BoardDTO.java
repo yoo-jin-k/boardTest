@@ -6,17 +6,13 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
-public class BoardDTO {
+public class BoardDTO extends CommonDTO {
 
-    private int num;
-
+    private Long idx;
     private String title;
-
-    private String name;
-
     private String content;
-
-    private int hit;
-
+    private String writer;
+    private int viewCnt;
+    private String noticeYn;
+    private String secretYn;
 }

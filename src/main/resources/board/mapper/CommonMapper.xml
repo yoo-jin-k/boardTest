@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--<mapper namespace="com.board.boardTest.mapper.CommonMapper">-->
+
+<!--    &lt;!&ndash; MySQL Paging &ndash;&gt;-->
+<!--    <sql id="paging">-->
+<!--        LIMIT-->
+<!--        #{paginationInfo.firstRecordIndex}, #{recordsPerPage}-->
+<!--    </sql>-->
+
+<!--    &lt;!&ndash; Oracle Paging Header &ndash;&gt;-->
+<!--    <sql id="pagingHeader">-->
+<!--        <if test="paginationInfo.firstRecordIndex != null and paginationInfo.lastRecordIndex != null">-->
+<!--            SELECT *-->
+<!--            FROM (-->
+<!--            SELECT rownum rnum, m.*-->
+<!--            FROM (-->
+<!--        </if>-->
+<!--    </sql>-->
+
+<!--    &lt;!&ndash; Oracle Paging Footer &ndash;&gt;-->
+<!--    <sql id="pagingFooter">-->
+<!--        <if test="paginationInfo.firstRecordIndex != null and paginationInfo.lastRecordIndex != null">-->
+<!--            ) m-->
+<!--            WHERE rownum <![CDATA[<=]]> #{paginationInfo.lastRecordIndex}-->
+<!--            )-->
+<!--            WHERE rnum <![CDATA[>]]> #{paginationInfo.firstRecordIndex}-->
+<!--        </if>-->
+<!--    </sql>-->
+
+<!--    &lt;!&ndash; search &ndash;&gt;-->
+<!--    <sql id="search_o">-->
+<!--        &lt;!&ndash; 검색 키워드가 있을 때 &ndash;&gt;-->
+<!--        <if test="searchKeyword != null and searchKeyword != ''">-->
+<!--            <choose>-->
+<!--                &lt;!&ndash; 검색 유형이 있을 때 &ndash;&gt;-->
+<!--                <when test="searchType != null and searchType != ''">-->
+<!--                    <choose>-->
+<!--                        <when test="'title'.equals(searchType)">-->
+<!--                            AND title LIKE '%' || #{searchKeyword} || '%'-->
+<!--                        </when>-->
+<!--                        <when test="'content'.equals(searchType)">-->
+<!--                            AND content LIKE '%' || #{searchKeyword} || '%'-->
+<!--                        </when>-->
+<!--                        <when test="'writer'.equals(searchType)">-->
+<!--                            AND writer LIKE '%' || #{searchKeyword} || '%'-->
+<!--                        </when>-->
+<!--                    </choose>-->
+<!--                </when>-->
+<!--                &lt;!&ndash; 검색 유형이 없을 때 &ndash;&gt;-->
+<!--                <otherwise>-->
+<!--                    AND-->
+<!--                    (-->
+<!--                    title LIKE '%' || #{searchKeyword} || '%'-->
+<!--                    OR content LIKE '%' || #{searchKeyword} || '%'-->
+<!--                    OR writer LIKE '%' || #{searchKeyword} || '%'-->
+<!--                    )-->
+<!--                </otherwise>-->
+<!--            </choose>-->
+<!--        </if>-->
+<!--    </sql>-->
+
+<!--    &lt;!&ndash; Mysql search &ndash;&gt;-->
+<!--    <sql id="search_m">-->
+<!--        &lt;!&ndash; 검색 키워드가 있을 때 &ndash;&gt;-->
+<!--        <if test="searchKeyword != null and searchKeyword != ''">-->
+<!--            <choose>-->
+<!--                &lt;!&ndash; 검색 유형이 있을 때 &ndash;&gt;-->
+<!--                <when test="searchType != null and searchType != ''">-->
+<!--                    <choose>-->
+<!--                        <when test="'title'.equals(searchType)">-->
+<!--                            AND title LIKE CONCAT('%', #{searchKeyword}, '%')-->
+<!--                        </when>-->
+<!--                        <when test="'content'.equals(searchType)">-->
+<!--                            AND content LIKE CONCAT('%', #{searchKeyword}, '%')-->
+<!--                        </when>-->
+<!--                        <when test="'writer'.equals(searchType)">-->
+<!--                            AND writer LIKE CONCAT('%', #{searchKeyword}, '%')-->
+<!--                        </when>-->
+<!--                    </choose>-->
+<!--                </when>-->
+<!--                &lt;!&ndash; 검색 유형이 없을 때 &ndash;&gt;-->
+<!--                <otherwise>-->
+<!--                    AND-->
+<!--                    (-->
+<!--                    title LIKE CONCAT('%', #{searchKeyword}, '%')-->
+<!--                    OR content LIKE CONCAT('%', #{searchKeyword}, '%')-->
+<!--                    OR writer LIKE CONCAT('%', #{searchKeyword}, '%')-->
+<!--                    )-->
+<!--                </otherwise>-->
+<!--            </choose>-->
+<!--        </if>-->
+<!--    </sql>-->
+
+<!--</mapper>-->

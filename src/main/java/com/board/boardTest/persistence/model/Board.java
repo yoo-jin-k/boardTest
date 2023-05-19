@@ -5,13 +5,11 @@ import lombok.Setter;
 
 @Getter @Setter
 public class Board {
-    private int num;
-
+    private Long idx;
     private String title;
-
-    private String name;
-
     private String content;
-
-    private int hit;
+    private String writer;
+    private int viewCnt;
+    private String noticeYn;
+    private String secretYn;
 }

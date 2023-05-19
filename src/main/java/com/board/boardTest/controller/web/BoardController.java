@@ -1,19 +1,16 @@
 package com.board.boardTest.controller.web;
 
 import com.board.boardTest.persistence.dto.BoardDTO;
-import com.board.boardTest.persistence.model.Board;
 import com.board.boardTest.service.BoardService;
-import com.sun.org.apache.xpath.internal.operations.Mod;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class BoardController {
@@ -29,67 +26,71 @@ public class BoardController {
         return mav;
     }
 
-    @GetMapping("/list")
-    public String boardList(Model model) throws Exception {
-        List<Board> lists = boardService.selectAll();
-        model.addAttribute("lists", lists);
-        System.out.println("****************************"+lists+"****************************");
-        return "/board/list";
+    @GetMapping(value = "/board/write")
+    public String openBoardWrite(@RequestParam(value = "idx", required = false) Long idx, Model model) {
+        if (idx == null) {
+            model.addAttribute("board", new BoardDTO());
+        } else {
+            BoardDTO board = boardService.getBoardDetail(idx);
+            if (board == null) {
+                return "redirect:/board/list";
+            }
+            model.addAttribute("board", board);
+        }
+
+        return "board/write";
     }
 
-    @GetMapping("/detail/{num}")
-    public String boardDetail(@PathVariable int num,Model model) throws Exception {
-        int board = boardService.selectBoardId(num);
-        model.addAttribute("board", board);
-        return "/board/detail";
+    @PostMapping(value = "/board/register")
+    public String registerBoard(BoardDTO params) {
+
+        int maxId = boardService.maxId();
+        params.setIdx((long) (maxId + 1));
+        boardService.registerBoard(params);
+        System.out.println("++++++++++++++++++++++++++++++");
+        return "redirect:/board/list";
     }
 
-//    추가
+    @GetMapping(value = "/board/list")
+    public String openBoardList(Model model) {
+        List<BoardDTO> boardList = boardService.getBoardList();
+        model.addAttribute("boardList", boardList);
 
-    @GetMapping("/board/insert")
-    public String boardInsertview(Board board,Model model) throws Exception {
-        return "/board/insert";
-    }
-
-    @PostMapping("/board/insert")
-    public String boardInsert(int num,Board board, Model model, HttpServletRequest request ) throws Exception {
-
-        boardService.UpdateView(num);
-        boardService.insertBoard(board);
-        model.addAttribute("board",board);
-        return "board/insert";
-    }
-
-    //    수정
-    @GetMapping("/board/update/{num}")
-    public String boardUpdateView() {
-        return "board/update";
-    }
-    @PostMapping("/board/update/{num}")
-    public String boardUpdate(@ModelAttribute Board board,Model model) throws Exception {
-        boardService.selectUpdate(board);
-        return "board/update";
-    }
-
-//    삭제
-    @PostMapping("/board/delete/{num}")
-    public String boardDelete(@PathVariable int num,Model model) throws Exception {
-        boardService.selectDelete(num);
         return "board/list";
     }
 
+    @GetMapping(value = "/board/view")
+    public String openBoardDetail(@ModelAttribute("params") BoardDTO params,
+                                  @RequestParam(value = "idx", required = false) Long idx, Model model) {
+//        if (idx == null) {
+//            return null;
+//        }
+        boardService.getUpdateView(idx);
+        BoardDTO board = boardService.getBoardDetail(idx);
+//        if (board == null || "Y".equals(board.getDeleteYn())) {
+//            return null;
+//        }
+        model.addAttribute("board", board);
 
+        return "board/view";
+    }
 
-//    페이징
+    @PostMapping(value = "/board/delete")
+    public String deleteBoard(@RequestParam(value = "idx", required = false) Long idx) {
+        if (idx == null) {
+            return "redirect:/board/list";
+        }
 
-//    public String boardPaging(Model model) throws Exception {
-//        return null;
-//    }
+        try {
+            int isDeleted = boardService.selectDeleteBoard(idx);
+            if (isDeleted == 0) {
+            }
+        } catch (DataAccessException e) {
+        } catch (Exception e) {
+        }
 
-//    검색
-//    public String boardSearch(Model model) throws Exception {
-//        return null;
-//    }
+        return "redirect:/board/list";
+    }
 
 
 }

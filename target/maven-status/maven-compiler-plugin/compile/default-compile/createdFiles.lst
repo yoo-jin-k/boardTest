@@ -1,1 +1,6 @@
+com\board\boardTest\persistence\dto\PaginationInfo.class
+com\board\boardTest\persistence\dto\Criteria.class
 com\board\boardTest\BoardTestApplication.class
+com\board\boardTest\util\UiUtils.class
+com\board\boardTest\persistence\dto\CommonDTO.class
+com\board\boardTest\util\Method.class

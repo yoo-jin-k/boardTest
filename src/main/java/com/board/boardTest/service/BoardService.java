@@ -1,25 +1,16 @@
 package com.board.boardTest.service;
 
-import com.board.boardTest.persistence.model.Board;
+import com.board.boardTest.persistence.dto.BoardDTO;
 
 import java.util.List;
 
 public interface BoardService {
+    public int maxId();
+    public void registerBoard(BoardDTO params);
+    public BoardDTO getBoardDetail(Long idx);
+    public int selectDeleteBoard(Long idx);
+    public List<BoardDTO> getBoardList();
 
-    public int maxNum(int num) throws Exception;
-
-    public List<Board> selectAll() throws Exception;
-
-    public int selectBoardId(int num) throws Exception;
-
-    public Board UpdateView(int num) throws Exception;
-
-    public int selectUpdate(Board board) throws Exception;
-
-    public Board selectDelete(int num) throws Exception;
-
-    public void insertBoard(Board board) throws Exception;
-
-
+    public int getUpdateView(Long idx);
 
 }

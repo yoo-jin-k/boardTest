@@ -3,54 +3,227 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.board.boardTest.mapper.BoardMapper">
 
-    <select id="selectBoardList" resultType="Board">
-            SELECT
-                *
-            FROM
-                BOARD
+    <select id="maxId" resultType="java.lang.Integer">
+        SELECT nvl(max(idx),0) FROM BOARD
     </select>
 
-    <select id="selectBoardId">
-        SELECT *
-        FROM BOARD B
-        WHERE B.NUM = #{num}
-    </select>
 
-    <insert id="insertBoard" parameterType="Board">
-        INSERT
-        INTO
-            BOARD
-            (B.NUM, B.TITLE, B.NAME, B.CONTENT)
-        VALUES (num.nextval, #{title}, #{name}, #{content})
+    <sql id="boardColumns">
+        idx
+        , title
+		, content
+		, writer
+		, view_cnt
+		, notice_yn
+		, secret_yn
+		, delete_yn
+		, insert_time
+		, update_time
+		, delete_time
+    </sql>
+
+    <insert id="insertBoard" parameterType="BoardDTO">
+        INSERT INTO BOARD (
+                            idx
+                          , title
+                          , content
+                          , writer
+                          , view_cnt
+                          , notice_yn
+                          , secret_yn
+                          , delete_yn
+                          , insert_time
+                          , update_time
+                          , delete_time
+        ) VALUES (
+          #{idx}
+        , #{title}
+        , #{content}
+        , #{writer}
+        , 0
+        , IFNULL(#{noticeYn, jdbcType=VARCHAR}, 'N')
+        , IFNULL(#{secretYn, jdbcType=VARCHAR}, 'N')
+        , 'N'
+        , NOW()
+        , NULL
+        , NULL
+        )
     </insert>
 
-    <select id="selectReadData" parameterType="java.lang.Integer" resultType="Board" >
+
+
+    <select id="selectBoardDetail" parameterType="long" resultType="BoardDTO">
         SELECT
-            B.NUM,
-            B.TITLE,
-            B.NAME,
-            B.CONTENT,
-            B.HIT
-        FROM BOARD B
-        WHERE B.NUM = #{num}
+            idx
+             , title
+             , content
+             , writer
+             , view_cnt
+             , notice_yn
+             , secret_yn
+             , delete_yn
+             , insert_time
+             , update_time
+             , delete_time
+        FROM
+        BOARD
+        WHERE
+        delete_yn = 'N'
+        AND
+        idx = #{idx}
     </select>
 
-    <update id="updateViewCount" parameterType="java.lang.Integer">
-        UPDATE BOARD B SET B.HIT = B.HIT + 1 WHERE B.NUM=#{num}
+    <update id="updateBoard" parameterType="BoardDTO">
+        UPDATE BOARD
+        SET
+            update_time = NOW()
+          , title = #{title}
+          , content = #{content}
+          , writer = #{writer}
+          , notice_yn = IFNULL(#{noticeYn, jdbcType=VARCHAR}, 'N')
+          , secret_yn = IFNULL(#{secretYn, jdbcType=VARCHAR}, 'N')
+        WHERE
+            idx = #{idx}
     </update>
 
-    <update id="updateBoard" parameterType="Board">
-        UPDATE BOARD B
-            SET
-                B.BOARD_TITLE = #{title},
-                B.BOARD_NAME = #{name},
-                B.BOARD_CONTENT = #{content}
-            WHERE B.NUM = #{num}
+    <update id="updateView" parameterType="long">
+        UPDATE BOARD
+        SET view_cnt = view_cnt + 1
+        WHERE idx = #{idx};
     </update>
 
-    <delete id="deleteBoard" parameterType="java.lang.Integer">
-        DELETE BOARD B where B.NUM=#{num}
+<!--    <update id="deleteBoard" parameterType="long">-->
+<!--        UPDATE BOARD-->
+<!--        SET-->
+<!--            delete_yn = 'Y'-->
+<!--          , delete_time = NOW-->
+<!--        WHERE-->
+<!--            idx = #{idx}-->
+<!--    </update>-->
+
+    <!-- Paging -->
+<!--    <select id="selectBoardList" parameterType="BoardDTO" resultType="BoardDTO">-->
+<!--        <include refid="CommonMapper.pagingHeader"/>-->
+<!--        SELECT-->
+<!--        <include refid="boardColumns" />-->
+<!--        FROM board-->
+<!--        WHERE delete_yn = 'N'-->
+<!--        <include refid="CommonMapper.search_o" />-->
+<!--        ORDER BY notice_yn DESC, idx DESC, insert_time DESC-->
+<!--        <include refid="CommonMapper.pagingFooter"/>-->
+<!--    </select>-->
+    <select id="selectBoardList" parameterType="BoardDTO" resultType="BoardDTO">
+        SELECT
+        <include refid="boardColumns" />
+        FROM BOARD
+        WHERE 1 = 1
+        ORDER BY idx DESC
+    </select>
+
+    <select id="selectBoardTotalCount" parameterType="BoardDTO" resultType="java.lang.Integer">
+        SELECT
+        COUNT(1)
+        FROM
+            BOARD
+        WHERE
+        delete_yn = 'N'
+    </select>
+
+    <!--  진짜삭제  -->
+    <delete id="selectDeleteBoard" parameterType="long">
+        delete
+        BOARD
+        WHERE
+            idx = #{idx}
     </delete>
+
+
+    <!--    <sql id="paging">-->
+    <!--        LIMIT-->
+    <!--        #{paginationInfo.firstRecordIndex}, #{recordsPerPage}-->
+    <!--    </sql>-->
+
+    <!--    <sql id="pagingHeader">-->
+    <!--        <if test="paginationInfo.firstRecordIndex != null and paginationInfo.lastRecordIndex != null">-->
+    <!--            SELECT *-->
+    <!--            FROM (-->
+    <!--            SELECT rownum rnum, m.*-->
+    <!--            FROM (-->
+    <!--        </if>-->
+    <!--    </sql>-->
+
+    <!--    <sql id="pagingFooter">-->
+    <!--        <if test="paginationInfo.firstRecordIndex != null and paginationInfo.lastRecordIndex != null">-->
+    <!--            ) m-->
+    <!--            WHERE rownum <![CDATA[<=]]> #{paginationInfo.lastRecordIndex}-->
+    <!--            )-->
+    <!--            WHERE rnum <![CDATA[>]]> #{paginationInfo.firstRecordIndex}-->
+    <!--        </if>-->
+    <!--    </sql>-->
+
+    <!-- search -->
+    <!--    <sql id="search_o">-->
+    <!--        &lt;!&ndash; 검색 키워드가 있을 때 &ndash;&gt;-->
+    <!--        <if test="searchKeyword != null and searchKeyword != ''">-->
+    <!--            <choose>-->
+    <!--                &lt;!&ndash; 검색 유형이 있을 때 &ndash;&gt;-->
+    <!--                <when test="searchType != null and searchType != ''">-->
+    <!--                    <choose>-->
+    <!--                        <when test="'title'.equals(searchType)">-->
+    <!--                            AND title LIKE CONCAT('%', #{searchKeyword}, '%')-->
+    <!--                        </when>-->
+    <!--                        <when test="'content'.equals(searchType)">-->
+    <!--                            AND content LIKE CONCAT('%', #{searchKeyword}, '%')-->
+    <!--                        </when>-->
+    <!--                        <when test="'writer'.equals(searchType)">-->
+    <!--                            AND writer LIKE CONCAT('%', #{searchKeyword}, '%')-->
+    <!--                        </when>-->
+    <!--                    </choose>-->
+    <!--                </when>-->
+    <!--                &lt;!&ndash; 검색 유형이 없을 때 &ndash;&gt;-->
+    <!--                <otherwise>-->
+    <!--                    AND-->
+    <!--                    (-->
+    <!--                    title LIKE CONCAT('%', #{searchKeyword}, '%')-->
+    <!--                    OR content LIKE CONCAT('%', #{searchKeyword}, '%')-->
+    <!--                    OR writer LIKE CONCAT('%', #{searchKeyword}, '%')-->
+    <!--                    )-->
+    <!--                </otherwise>-->
+    <!--            </choose>-->
+    <!--        </if>-->
+    <!--    </sql>-->
+
+    <!-- Mysql search -->
+    <!--    <sql id="search_m">-->
+    <!--        &lt;!&ndash; 검색 키워드가 있을 때 &ndash;&gt;-->
+    <!--        <if test="searchKeyword != null and searchKeyword != ''">-->
+    <!--            <choose>-->
+    <!--                &lt;!&ndash; 검색 유형이 있을 때 &ndash;&gt;-->
+    <!--                <when test="searchType != null and searchType != ''">-->
+    <!--                    <choose>-->
+    <!--                        <when test="'title'.equals(searchType)">-->
+    <!--                            AND title LIKE CONCAT('%', #{searchKeyword}, '%')-->
+    <!--                        </when>-->
+    <!--                        <when test="'content'.equals(searchType)">-->
+    <!--                            AND content LIKE CONCAT('%', #{searchKeyword}, '%')-->
+    <!--                        </when>-->
+    <!--                        <when test="'writer'.equals(searchType)">-->
+    <!--                            AND writer LIKE CONCAT('%', #{searchKeyword}, '%')-->
+    <!--                        </when>-->
+    <!--                    </choose>-->
+    <!--                </when>-->
+    <!--                &lt;!&ndash; 검색 유형이 없을 때 &ndash;&gt;-->
+    <!--                <otherwise>-->
+    <!--                    AND-->
+    <!--                    (-->
+    <!--                    title LIKE CONCAT('%', #{searchKeyword}, '%')-->
+    <!--                    OR content LIKE CONCAT('%', #{searchKeyword}, '%')-->
+    <!--                    OR writer LIKE CONCAT('%', #{searchKeyword}, '%')-->
+    <!--                    )-->
+    <!--                </otherwise>-->
+    <!--            </choose>-->
+    <!--        </if>-->
+    <!--    </sql>-->
 
 </mapper>
 
