@@ -6,6 +6,7 @@ import com.board.boardTest.service.BoardService;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -29,67 +30,82 @@ public class BoardController {
         return mav;
     }
 
-    @GetMapping("/list")
-    public String boardList(Model model) throws Exception {
-        List<Board> lists = boardService.selectAll();
-        model.addAttribute("lists", lists);
-        System.out.println("****************************"+lists+"****************************");
-        return "/board/list";
+    @GetMapping(value = "/board/write.do")
+    public String openBoardWrite(@RequestParam(value = "idx", required = false) Long idx, Model model) {
+        if (idx == null) {
+            model.addAttribute("board", new BoardDTO());
+        } else {
+            BoardDTO board = boardService.getBoardDetail(idx);
+            if (board == null) {
+                return "redirect:/board/list.do";
+            }
+            model.addAttribute("board", board);
+        }
+
+        return "board/write";
     }
 
-    @GetMapping("/detail/{num}")
-    public String boardDetail(@PathVariable int num,Model model) throws Exception {
-        int board = boardService.selectBoardId(num);
-        model.addAttribute("board", board);
-        return "/board/detail";
+    @PostMapping(value = "/board/register.do")
+    public String registerBoard(final BoardDTO params) {
+        try {
+            boolean isRegistered = boardService.registerBoard(params);
+            System.out.println("");
+            if (isRegistered == false) {
+                // TODO => 게시글 등록에 실패하였다는 메시지를 전달
+            }
+        } catch (DataAccessException e) {
+            // TODO => 데이터베이스 처리 과정에 문제가 발생하였다는 메시지를 전달
+        } catch (Exception e) {
+            // TODO => 시스템에 문제가 발생하였다는 메시지를 전달
+        }
+        return "redirect:/board/list.do";
     }
 
-//    추가
+    @GetMapping(value = "/board/list.do")
+    public String openBoardList(Model model) {
+        List<BoardDTO> boardList = boardService.getBoardList();
+        model.addAttribute("boardList", boardList);
 
-    @GetMapping("/board/insert")
-    public String boardInsertview(Board board,Model model) throws Exception {
-        return "/board/insert";
-    }
-
-    @PostMapping("/board/insert")
-    public String boardInsert(int num,Board board, Model model, HttpServletRequest request ) throws Exception {
-
-        boardService.UpdateView(num);
-        boardService.insertBoard(board);
-        model.addAttribute("board",board);
-        return "board/insert";
-    }
-
-    //    수정
-    @GetMapping("/board/update/{num}")
-    public String boardUpdateView() {
-        return "board/update";
-    }
-    @PostMapping("/board/update/{num}")
-    public String boardUpdate(@ModelAttribute Board board,Model model) throws Exception {
-        boardService.selectUpdate(board);
-        return "board/update";
-    }
-
-//    삭제
-    @PostMapping("/board/delete/{num}")
-    public String boardDelete(@PathVariable int num,Model model) throws Exception {
-        boardService.selectDelete(num);
         return "board/list";
     }
 
+    @GetMapping(value = "/board/view.do")
+    public String openBoardDetail(@RequestParam(value = "idx", required = false) Long idx, Model model) {
+        System.out.println("현재 -->" + this.getClass().getName() + "<-- 수행중..." );
+        if (idx == null) {
+            // TODO => 올바르지 않은 접근이라는 메시지를 전달하고, 게시글 리스트로 리다이렉트
+            return "redirect:/board/list.do";
+        }
+        BoardDTO board = boardService.getBoardDetail(idx);
+//        boardService.UpdateView(idx);
+        if (board == null || "Y".equals(board.getDeleteYn())) {
+            // TODO => 없는 게시글이거나, 이미 삭제된 게시글이라는 메시지를 전달하고, 게시글 리스트로 리다이렉트
+            return "redirect:/board/list.do";
+        }
+        model.addAttribute("board", board);
 
+        return "board/view";
+    }
 
-//    페이징
+    @PostMapping(value = "/board/delete.do")
+    public String deleteBoard(@RequestParam(value = "idx", required = false) Long idx) {
+        if (idx == null) {
+            // TODO => 올바르지 않은 접근이라는 메시지를 전달하고, 게시글 리스트로 리다이렉트
+            return "redirect:/board/list.do";
+        }
 
-//    public String boardPaging(Model model) throws Exception {
-//        return null;
-//    }
+        try {
+            boolean isDeleted = boardService.deleteBoard(idx);
+            if (isDeleted == false) {
+                // TODO => 게시글 삭제에 실패하였다는 메시지를 전달
+            }
+        } catch (DataAccessException e) {
+            // TODO => 데이터베이스 처리 과정에 문제가 발생하였다는 메시지를 전달
+        } catch (Exception e) {
+            // TODO => 시스템에 문제가 발생하였다는 메시지를 전달
+        }
 
-//    검색
-//    public String boardSearch(Model model) throws Exception {
-//        return null;
-//    }
-
+        return "redirect:/board/list.do";
+    }
 
 }

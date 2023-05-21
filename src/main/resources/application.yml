@@ -1,9 +1,9 @@
 spring:
   datasource:
-    driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://192.168.0.200:3309/test_check
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/testdb
     username: root
-    password: qwer1234!@
+    password: 12345678
   thymeleaf:
     cache: true
     check-template: true
@@ -19,6 +19,7 @@ mybatis:
     default-fetch-size: 100
     default-statement-timeout: 30
   mapper-locations: classpath:/board/mapper/*.xml
+
 
 
 

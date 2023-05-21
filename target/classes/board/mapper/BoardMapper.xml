@@ -3,54 +3,89 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.board.boardTest.mapper.BoardMapper">
 
-    <select id="selectBoardList" resultType="Board">
-            SELECT
-                *
-            FROM
-                BOARD
-    </select>
+    <sql id="boardColumns">
+        idx
+        , title
+		, content
+		, writer
+		, view_cnt
+		, notice_yn
+		, secret_yn
+		, delete_yn
+		, insert_time
+		, update_time
+		, delete_time
+    </sql>
 
-    <select id="selectBoardId">
-        SELECT *
-        FROM BOARD B
-        WHERE B.NUM = #{num}
-    </select>
-
-    <insert id="insertBoard" parameterType="Board">
-        INSERT
-        INTO
-            BOARD
-            (B.NUM, B.TITLE, B.NAME, B.CONTENT)
-        VALUES (num.nextval, #{title}, #{name}, #{content})
+    <insert id="insertBoard" parameterType="BoardDTO" keyProperty="idx">
+        INSERT INTO board (
+        <include refid="boardColumns" />
+        ) VALUES (
+        #{idx}
+        , #{title}
+        , #{content}
+        , #{writer}
+        , 0
+        , IFNULL(#{noticeYn, jdbcType=VARCHAR}, 'N')
+        , IFNULL(#{secretYn, jdbcType=VARCHAR}, 'N')
+        , 'N'
+        , NOW()
+        , NULL
+        , NULL
+        )
     </insert>
 
-    <select id="selectReadData" parameterType="java.lang.Integer" resultType="Board" >
+    <select id="selectBoardDetail" parameterType="long" resultType="BoardDTO">
         SELECT
-            B.NUM,
-            B.TITLE,
-            B.NAME,
-            B.CONTENT,
-            B.HIT
-        FROM BOARD B
-        WHERE B.NUM = #{num}
+        <include refid="boardColumns" />
+        FROM
+        board
+        WHERE
+        delete_yn = 'N'
+        AND
+        idx = #{idx}
+    </select>
+
+    <update id="updateBoard" parameterType="BoardDTO">
+        UPDATE board
+        SET
+            update_time = NOW()
+          , title = #{title}
+          , content = #{content}
+          , writer = #{writer}
+          , notice_yn = IFNULL(#{noticeYn, jdbcType=VARCHAR}, 'N')
+          , secret_yn = IFNULL(#{secretYn, jdbcType=VARCHAR}, 'N')
+        WHERE
+            idx = #{idx}
+    </update>
+
+    <update id="deleteBoard" parameterType="long">
+        UPDATE board
+        SET
+            delete_yn = 'Y'
+          , delete_time = NOW()
+        WHERE
+            idx = #{idx}
+    </update>
+
+    <select id="selectBoardList" parameterType="BoardDTO" resultType="BoardDTO">
+        SELECT
+        <include refid="boardColumns" />
+        FROM board
+        WHERE delete_yn = 'N'
+        ORDER BY notice_yn ASC, idx DESC, insert_time DESC
+    </select>
+
+    <select id="selectBoardTotalCount" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM
+            board
+        WHERE delete_yn = 'N'
     </select>
 
     <update id="updateViewCount" parameterType="java.lang.Integer">
-        UPDATE BOARD B SET B.HIT = B.HIT + 1 WHERE B.NUM=#{num}
+        UPDATE BOARD B SET B.view_cnt = B.view_cnt + 1 WHERE B.IDX=#{idx}
     </update>
-
-    <update id="updateBoard" parameterType="Board">
-        UPDATE BOARD B
-            SET
-                B.BOARD_TITLE = #{title},
-                B.BOARD_NAME = #{name},
-                B.BOARD_CONTENT = #{content}
-            WHERE B.NUM = #{num}
-    </update>
-
-    <delete id="deleteBoard" parameterType="java.lang.Integer">
-        DELETE BOARD B where B.NUM=#{num}
-    </delete>
-
 </mapper>
 

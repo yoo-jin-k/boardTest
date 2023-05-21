@@ -1,12 +1,13 @@
 package com.board.boardTest.service.Impl;
 
 import com.board.boardTest.mapper.BoardMapper;
-import com.board.boardTest.persistence.model.Board;
+import com.board.boardTest.persistence.dto.BoardDTO;
 import com.board.boardTest.service.BoardService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Slf4j
@@ -16,40 +17,55 @@ public class BoardServiceImpl implements BoardService {
     private BoardMapper boardMapper;
 
     @Override
-    public int maxNum(int num) throws Exception {
-        return boardMapper.maxNum(num);
+    public boolean registerBoard(BoardDTO params) {
+        int queryResult = 0;
+
+        if (params.getIdx() == null) {
+            queryResult = boardMapper.insertBoard(params);
+        } else {
+            queryResult = boardMapper.updateBoard(params);
+        }
+
+        return (queryResult == 1) ? true : false;
     }
 
     @Override
-    public List<Board> selectAll() throws Exception {
-        return boardMapper.selectBoardList();
+    public BoardDTO getBoardDetail(Long idx) {
+        return boardMapper.selectBoardDetail(idx);
     }
 
     @Override
-    public int selectBoardId(int num) throws Exception {
-         boardMapper.selectReadData(num);
-        return num;
+    public boolean deleteBoard(Long idx) {
+        int queryResult = 0;
+
+        BoardDTO board = boardMapper.selectBoardDetail(idx);
+
+        if (board != null && "N".equals(board.getDeleteYn())) {
+            queryResult = boardMapper.deleteBoard(idx);
+        }
+
+        return (queryResult == 1) ? true : false;
     }
 
     @Override
-    public void insertBoard(Board board) throws Exception {
-        boardMapper.insertBoard(board);
+    public List<BoardDTO> getBoardList() {
+        List<BoardDTO> boardList = Collections.emptyList();
+
+        int boardTotalCount = boardMapper.selectBoardTotalCount();
+
+        if (boardTotalCount > 0) {
+            boardList = boardMapper.selectBoardList();
+        }
+
+        return boardList;
     }
 
-    @Override
-    public Board UpdateView(int num) throws Exception {
-        return boardMapper.updateViewCount(num);
-    }
 
     @Override
-    public int selectUpdate(Board board) throws Exception {
-        return boardMapper.updateBoard(board);
+    public int UpdateView(Long idx) {
+        return boardMapper.updateViewCount(idx);
     }
 
-    @Override
-    public Board selectDelete(int num) throws Exception {
-        return boardMapper.deleteBoard(num);
-    }
 
 
 }
