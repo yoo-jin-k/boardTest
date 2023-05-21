@@ -2,6 +2,7 @@ package com.board.boardTest.service.Impl;
 
 import com.board.boardTest.mapper.BoardMapper;
 import com.board.boardTest.persistence.dto.BoardDTO;
+import com.board.boardTest.persistence.page.PaginationInfo;
 import com.board.boardTest.service.BoardService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,13 +49,17 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public List<BoardDTO> getBoardList() {
+    public List<BoardDTO> getBoardList(BoardDTO params) {
         List<BoardDTO> boardList = Collections.emptyList();
 
-        int boardTotalCount = boardMapper.selectBoardTotalCount();
+        int boardTotalCount = boardMapper.selectBoardTotalCount(params);
+        PaginationInfo paginationInfo = new PaginationInfo(params);
+        paginationInfo.setTotalRecordCount(boardTotalCount);
+
+        params.setPaginationInfo(paginationInfo);
 
         if (boardTotalCount > 0) {
-            boardList = boardMapper.selectBoardList();
+            boardList = boardMapper.selectBoardList(params);
         }
 
         return boardList;
