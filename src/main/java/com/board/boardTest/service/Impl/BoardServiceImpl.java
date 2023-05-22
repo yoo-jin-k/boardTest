@@ -48,18 +48,31 @@ public class BoardServiceImpl implements BoardService {
         return (queryResult == 1) ? true : false;
     }
 
+//    @Override
+//    public List<BoardDTO> getBoardList(BoardDTO params) {
+//        List<BoardDTO> boardList = Collections.emptyList();
+//
+//        int boardTotalCount = boardMapper.selectBoardTotalCount(params);
+//        PaginationInfo paginationInfo = new PaginationInfo(params);
+//        paginationInfo.setTotalRecordCount(boardTotalCount);
+//
+//        params.setPaginationInfo(paginationInfo);
+//
+//        if (boardTotalCount > 0) {
+//            boardList = boardMapper.selectBoardList(params);
+//        }
+//
+//        return boardList;
+//    }
+
     @Override
-    public List<BoardDTO> getBoardList(BoardDTO params) {
+    public List<BoardDTO> getBoardList() {
         List<BoardDTO> boardList = Collections.emptyList();
 
-        int boardTotalCount = boardMapper.selectBoardTotalCount(params);
-        PaginationInfo paginationInfo = new PaginationInfo(params);
-        paginationInfo.setTotalRecordCount(boardTotalCount);
-
-        params.setPaginationInfo(paginationInfo);
+        int boardTotalCount = boardMapper.selectBoardTotalCount();
 
         if (boardTotalCount > 0) {
-            boardList = boardMapper.selectBoardList(params);
+            boardList = boardMapper.selectBoardList();
         }
 
         return boardList;

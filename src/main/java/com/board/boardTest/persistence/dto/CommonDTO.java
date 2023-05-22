@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class CommonDTO extends Criteria {
+public class CommonDTO {
 
 	/** 페이징 정보 */
 	private PaginationInfo paginationInfo;
