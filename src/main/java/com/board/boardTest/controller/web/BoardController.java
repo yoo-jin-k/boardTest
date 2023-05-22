@@ -1,6 +1,7 @@
 package com.board.boardTest.controller.web;
 
 import com.board.boardTest.persistence.dto.BoardDTO;
+import com.board.boardTest.persistence.dto.PageDTO;
 import com.board.boardTest.persistence.model.Board;
 import com.board.boardTest.persistence.page.Criteria;
 import com.board.boardTest.service.BoardService;
@@ -62,9 +63,13 @@ public class BoardController {
     }
 
     @GetMapping({"/board/list.do"})
-    public String openBoardList(Model model) {
-        List<BoardDTO> boardList = this.boardService.getBoardList();
+    public String openBoardList(Model model,Criteria criteria) {
+        List<BoardDTO> boardList = this.boardService.getBoardList(criteria);
         model.addAttribute("boardList", boardList);
+
+        int total = boardService.getTotalCount(criteria);
+        PageDTO pageMaker = new PageDTO(criteria, total);
+        model.addAttribute("pageMaker", pageMaker);
         return "board/list";
     }
 

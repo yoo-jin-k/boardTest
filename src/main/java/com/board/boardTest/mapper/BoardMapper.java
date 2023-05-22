@@ -2,6 +2,7 @@ package com.board.boardTest.mapper;
 
 import com.board.boardTest.persistence.dto.BoardDTO;
 import com.board.boardTest.persistence.model.Board;
+import com.board.boardTest.persistence.page.Criteria;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public interface BoardMapper {
     public BoardDTO selectBoardDetail(Long idx);
     public int updateBoard(BoardDTO params);
     public int deleteBoard(Long idx);
-    public List<BoardDTO> selectBoardList();
-    public int selectBoardTotalCount();
+    public List<BoardDTO> selectBoardList(Criteria criteria);
+    public int selectBoardTotalCount(Criteria criteria);
     public int updateViewCount(Long idx);
 }

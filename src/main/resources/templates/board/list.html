@@ -47,10 +47,37 @@
         <a th:href="@{/board/write.do}" class="btn btn-primary waves-effect waves-light">Write</a>
       </div>
 
-      <th:block layout:fragment="paging">
-        <nav th:replace="board/fragments/common :: pagination">
-        </nav>
+      <p th:text=${pageMaker}></p>
+
+
+      <!-- 이전 버튼 -->
+      <th:block th:if="${pageMaker.prev}">
+        <li class="pageMaker_btn prev">
+          <a href="javascript:void(0)" th:onclick="movePage([[ ${#request.requestURI} ]], [[ ${pageMaker.cri.makeQueryString(pageMaker.pageStart - 1)} ]])">이전</a>
+        </li>
       </th:block>
+
+      <!-- 페이지 번호 -->
+      <th:block th:with="pageMaker = ${pageMaker}">
+        <th:block th:each="num : *{#numbers.sequence(pageMaker.pageStart, pageMaker.pageEnd)}">
+          <li class="pageMaker_btn" th:classappend="${pageMaker.cri.pageNum == num} ? 'active' : ''">
+            <a href="javascript:void(0)" th:text="${num}" th:onclick="movePage([[ ${#request.requestURI} ]],[[ ${pageMaker.cri.makeQueryString(num)} ]])"></a>
+          </li>
+        </th:block>
+      </th:block>
+
+
+      <!-- 다음 버튼 -->
+      <th:block th:if="${pageMaker.next}">
+        <li class="pageMaker_btn next">
+          <a href="javascript:void(0)" th:onclick="movePage( [[ ${#request.requestURI} ]], [[ ${pageMaker.cri.makeQueryString(pageMaker.pageEnd + 1)} ]])">다음</a>
+        </li>
+      </th:block>
+
+<!--      <th:block layout:fragment="paging">-->
+<!--        <nav th:replace="board/fragments/common :: pagination">-->
+<!--        </nav>-->
+<!--      </th:block>-->
     </div>
   </th:block>
   
@@ -87,4 +114,14 @@
 <!--      /*]]>*/-->
 <!--    </script>-->
 <!--  </th:block>-->
+    <script th:javascript>
+      /* ![CDATA[ */
+      function movePage(uri, queryString) {
+        console.log(uri);
+        console.log(queryString);
+
+        location.href = uri + queryString;
+      }
+      /* ]]*/
+    </script>
 </html>

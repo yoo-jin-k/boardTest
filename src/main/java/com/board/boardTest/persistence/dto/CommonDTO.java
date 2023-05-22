@@ -1,7 +1,6 @@
 package com.board.boardTest.persistence.dto;
 
 import com.board.boardTest.persistence.page.Criteria;
-import com.board.boardTest.persistence.page.PaginationInfo;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +11,7 @@ import java.time.LocalDateTime;
 public class CommonDTO {
 
 	/** 페이징 정보 */
-	private PaginationInfo paginationInfo;
+	private Criteria criteria;
 
 	/** 삭제 여부 */
 	private String deleteYn;

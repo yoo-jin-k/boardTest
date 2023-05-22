@@ -72,8 +72,12 @@
         SELECT
         <include refid="boardColumns" />
         FROM board
-        WHERE delete_yn = 'N'
+        <if test="keyword != null">
+            WHERE delete_yn = 'N'
+            LIKE CONCAT('%', #{keyword}, '%')
+        </if>
         ORDER BY notice_yn ASC, idx DESC, insert_time DESC
+        LIMIT #{skip}, #{amount}
     </select>
 
     <select id="selectBoardTotalCount" resultType="int">
@@ -81,7 +85,11 @@
             COUNT(*)
         FROM
             board
+        <if test="keyword != null">
         WHERE delete_yn = 'N'
+        LIKE
+        concat('%', #{keyword}, '%')
+        </if>
     </select>
 
     <update id="updateViewCount" parameterType="java.lang.Integer">

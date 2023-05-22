@@ -11,6 +11,9 @@ spring:
     suffix: .html
   mvc:
     static-path-pattern: /static/**
+  devtools:
+    livereload:
+      enabled: true
 
 mybatis:
   type-aliases-package: com.board.boardTest.persistence
