@@ -2,12 +2,16 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" 
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
   <body th:fragment="main-body">
+    
     <div class="fixed-navbar">
       <div class="pull-left">
         <h1 class="page-title">Board</h1>
       </div>
     </div>
     <!-- /.fixed-navbar -->
+    
+    <th:block layout:fragment="modal"></th:block>
+    
     <div id="wrapper">
       <div class="main-content">
         <div class="row row-inline-block small-spacing">
@@ -38,6 +42,7 @@
       <!-- /.main-content -->
     </div>
     <!-- /#wrapper -->
+    
     <script th:src="@{/scripts/jquery.min.js}"></script>
     <script th:src="@{/plugin/bootstrap/js/bootstrap.min.js}"></script>
     <script th:src="@{/plugin/mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js}"></script>
