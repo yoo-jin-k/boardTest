@@ -5,13 +5,24 @@ import lombok.Setter;
 
 @Getter @Setter
 public class Board {
-    private int num;
+    /** 번호 (PK) */
+    private Long idx;
 
+    /** 제목 */
     private String title;
 
-    private String name;
-
+    /** 내용 */
     private String content;
 
-    private int hit;
+    /** 작성자 */
+    private String writer;
+
+    /** 조회 수 */
+    private int viewCnt;
+
+    /** 공지 여부 */
+    private String noticeYn;
+
+    /** 비밀 여부 */
+    private String secretYn;
 }

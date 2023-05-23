@@ -2,7 +2,8 @@ package com.board.boardTest.service.Impl;
 
 import com.board.boardTest.mapper.BoardMapper;
 import com.board.boardTest.persistence.dto.BoardDTO;
-import com.board.boardTest.persistence.page.Criteria;
+
+import com.board.boardTest.persistence.paging.PaginationInfo;
 import com.board.boardTest.service.BoardService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,22 +67,27 @@ public class BoardServiceImpl implements BoardService {
 //    }
 
     @Override
-    public List<BoardDTO> getBoardList(Criteria criteria) {
+    public List<BoardDTO> getBoardList(BoardDTO params) {
         List<BoardDTO> boardList = Collections.emptyList();
 
-        int boardTotalCount = boardMapper.selectBoardTotalCount(criteria);
+        int boardTotalCount = boardMapper.selectBoardTotalCount(params);
+
+        PaginationInfo paginationInfo = new PaginationInfo(params);
+        paginationInfo.setTotalRecordCount(boardTotalCount);
+
+        params.setPaginationInfo(paginationInfo);
 
         if (boardTotalCount > 0) {
-            boardList = boardMapper.selectBoardList(criteria);
+            boardList = boardMapper.selectBoardList(params);
         }
 
         return boardList;
     }
 
-    @Override
-    public int getTotalCount(Criteria criteria) {
-        return boardMapper.selectBoardTotalCount(criteria);
-    }
+//    @Override
+//    public int getTotalCount(Criteria criteria) {
+//        return boardMapper.selectBoardTotalCount(criteria);
+//    }
 
 
     @Override
