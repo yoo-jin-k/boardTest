@@ -380,15 +380,16 @@ h4 strong {
 }
 .btn {
   background: #e4e7ea;
-  outline: none !important;
-  font-size: 16px;
-  line-height: 26px;
-  padding: 8px 25px;
-  border: none;
-  font-weight: 500;
-  box-shadow: none!important;
-  -moz-box-shadow: none!important;
-  -webkit-box-shadow: none!important;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 10px;
+  width: 100px;
+  border-radius: 5px;
+}
+.table {
+  width: 100%;
 }
 .btn.btn-bordered {
   background: #ffffff;
@@ -547,8 +548,16 @@ h4 strong {
   margin-left: 8px;
 }
 .btn-primary {
-  background: #1d84df;
+  background: #e4e7ea;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 10px;
+  width: 100px;
+  border-radius: 5px;
 }
+
 .btn-primary:hover,
 .btn-primary:active,
 .btn-primary:focus {
@@ -1300,7 +1309,6 @@ Version 1.0
 */
 .form-control {
   line-height: 24px;
-  padding: 9px 14px;
   height: 45px;
   border-color: #ccd1d9;
   box-shadow: none;
@@ -1386,7 +1394,7 @@ textarea.form-control {
 }
 /*---------------------------------------------------------------------*/
 
-.form-group .form-control {height: auto;}
+.form-group .form-control {height: 30px;}
 .form-group .form-control.file_list a {display: block;}
 .form-group .form-control.file_list button {width: 20px; height: 20px; margin-left: 3px; padding: 0; line-height: 20px;}
 
@@ -1396,6 +1404,8 @@ textarea.form-control {
 .dropdown.dropdown-lg .dropdown-menu {
     margin-top: -1px;
     padding: 6px 20px;
+  display: flex;
+  justify-content: center;
 }
 .input-group-btn .btn-group {
     display: flex !important;
@@ -1415,10 +1425,10 @@ textarea.form-control {
 .form-horizontal .form-group {
     margin-left: 0;
     margin-right: 0;
+  margin-bottom: 10px;
 }
-.form-group .form-control:last-child {
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
+.form-horizontal .form-group label {
+  width: 130px;
 }
 
 @media screen and (min-width: 768px) {
@@ -1432,4 +1442,17 @@ textarea.form-control {
     .dropdown.dropdown-lg .dropdown-menu {
         min-width: 500px;
     }
+}
+
+.pagination {
+  display: flex;
+  list-style-type: none;
+  justify-content: center;
+}
+.pagination li {
+  margin-right: 5px;
+}
+
+.pagination li:last-child {
+  margin-right: 0;
 }

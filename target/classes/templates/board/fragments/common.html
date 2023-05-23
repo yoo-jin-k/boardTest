@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<link rel="stylesheet" media="screen, print" th:href="@{/css/style.css}" />
+<link rel="stylesheet" media="screen, print" th:href="@{/plugin/mCustomScrollbar/jquery.mCustomScrollbar.min.css}" />
 
   <nav th:fragment="pagination" th:if="${params != null and params.paginationInfo.totalRecordCount > 0}" th:object="${params.paginationInfo}" th:with="info=${params.paginationInfo}" aria-label="Page navigation" class="text-center">
     <ul class="pagination">

@@ -3,13 +3,15 @@
 	<th:block layout:fragment="title">
 		<title>list page</title>
 	</th:block>
+    <link rel="stylesheet" media="screen, print" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" media="screen, print" th:href="@{/plugin/mCustomScrollbar/jquery.mCustomScrollbar.min.css}" />
 
     <div id="adv-search" class="input-group">
-      <input type="text" id="mainSearchKeyword" class="form-control" th:value="${params.searchKeyword}" placeholder="키워드를 입력해 주세요." />
+<!--      <input type="text" id="mainSearchKeyword" class="form-control" th:value="${params.searchKeyword}" placeholder="키워드를 입력해 주세요." />-->
       <div class="input-group-btn">
         <div class="btn-group" role="group">
           <div class="dropdown dropdown-lg">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+<!--            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>-->
             <div class="dropdown-menu dropdown-menu-right" role="menu">
               <!--/* 검색 form */-->
               <form id="searchForm" th:action="@{/board/list.do}" method="get" th:onsubmit="return searchBoard(this)" class="form-horizontal" role="form">
@@ -29,13 +31,13 @@
                 </div>
                 <div class="form-group">
                   <label for="contain">키워드</label>
-                  <input type="text" name="searchKeyword" class="form-control" th:value="${params.searchKeyword}" />
+                  <input type="text" name="searchKeyword" class="form-control" th:value="${params.searchKeyword}" placeholder="키워드를 입력해 주세요." />
                 </div>
-                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true">search</span></button>
               </form>
             </div>
           </div>
-          <button type="button" class="btn btn-primary" onclick="searchBoard(null)"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+<!--          <button type="button" class="btn btn-primary" onclick="searchBoard(null)"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>-->
         </div>
       </div>
     </div>
@@ -112,4 +114,34 @@
       /*]]>*/
     </script>
   </th:block>
+<script>
+  function searchBoard(form) {
+    /*[- 드롭다운이 아닌 메인 검색 키워드로 검색했을 때 -]*/
+    if (isEmpty(form) == true) {
+      var searchKeyword = document.getElementById("mainSearchKeyword");
+      if (isEmpty(searchKeyword.value) == true) {
+        alert("키워드를 입력해 주세요.");
+        searchKeyword.focus();
+        return false;
+      }
+
+      form = document.getElementById("searchForm");
+      form.searchKeyword.value = searchKeyword.value;
+      form.submit();
+    }
+
+    if (isEmpty(form.searchKeyword.value) == true) {
+      alert("키워드를 입력해 주세요.");
+      form.searchKeyword.focus();
+      return false;
+    }
+  }
+</script>
+    <script th:src="@{/scripts/jquery.min.js}"></script>
+    <script th:src="@{/plugin/bootstrap/js/bootstrap.min.js}"></script>
+    <script th:src="@{/plugin/mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js}"></script>
+    <script th:src="@{/plugin/common/moment.js}"></script>
+
+    <script th:src="@{/scripts/main.js}"></script>
+    <script th:src="@{/scripts/common.js}"></script>
 </html>
