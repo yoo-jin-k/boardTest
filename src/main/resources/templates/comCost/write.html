@@ -16,13 +16,7 @@
 			<!--/* update의 경우 서버로 전달할 게시글 번호 (custCd) */-->
 			<input type="hidden" th:if="*{custCd != null and custCd > 0}"
 				th:field="*{custCd}" />
-			<div class="form-group">
-				<label for="useYn" class="col-sm-2 control-label">useYn 설정</label>
-				<div class="col-sm-10" style="margin-top: 10px;">
-					<input type="checkbox" th:value="*{useYn}" id="useYn"
-						name="noticeYn" th:checked="*{#strings.equals( useYn, 'Y' )}" />
-				</div>
-			</div>
+
 
 <!--			<div class="form-group">-->
 <!--				<label for="secretYn" class="col-sm-2 control-label">비밀글 설정</label>-->
@@ -32,6 +26,13 @@
 <!--				</div>-->
 <!--			</div>-->
 
+			<div class="form-group">
+				<label for="title" class="col-sm-2 control-label">bizCd</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control"
+						   placeholder="bizCd" value="BIZ01"/>
+				</div>
+			</div>
 
 			<div class="form-group">
 				<label for="title" class="col-sm-2 control-label">custNm</label>
@@ -52,10 +53,156 @@
 			<div class="form-group">
 				<label for="content" class="col-sm-2 control-label">bizregNo</label>
 				<div class="col-sm-10">
-					<textarea th:field="*{bizregNo}" class="form-control"
-						placeholder="bizregNo"></textarea>
+					<input type="text" th:field="*{bizregNo}" class="form-control"
+						placeholder="bizregNo"/>
 				</div>
 			</div>
+
+			<!-- todo.법인,개인 드롭다운으로 변경 -->
+			<div class="form-group">
+				<label for="title" class="col-sm-2 control-label">bizType</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control"
+						   placeholder="bizType" value="법인"/>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="title" class="col-sm-2 control-label">ceoNm</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{ceoNm}" class="form-control"
+						   placeholder="ceoNm" value="대표자이름"/>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="title" class="col-sm-2 control-label">compNm</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{compNm}" class="form-control"
+						   placeholder="compNm" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="title" class="col-sm-2 control-label">addr1</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{addr1}" class="form-control"
+						   placeholder="addr1" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="title" class="col-sm-2 control-label">addr2</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{addr2}" class="form-control"
+						   placeholder="addr2" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="title" class="col-sm-2 control-label">zipCd</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{zipCd}" class="form-control"
+						   placeholder="zipCd" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="title" class="col-sm-2 control-label">tel1</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{tel1}" class="form-control"
+						   placeholder="tel1" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="title" class="col-sm-2 control-label">tel2</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{tel2}" class="form-control"
+						   placeholder="tel2" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="title" class="col-sm-2 control-label">fax</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{fax}" class="form-control"
+						   placeholder="fax" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="title" class="col-sm-2 control-label">email</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{email}" class="form-control"
+						   placeholder="email" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="title" class="col-sm-2 control-label">orderNum</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{orderNum}" class="form-control"
+						   placeholder="orderNum" value="0"/>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="title" class="col-sm-2 control-label">rmk</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{rmk}" class="form-control"
+						   placeholder="rmk" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="useYn" class="col-sm-2 control-label">useYn 설정</label>
+				<div class="col-sm-10" style="margin-top: 10px;">
+					<input type="checkbox" th:value="*{useYn}" id="useYn"
+						   name="useYn" th:checked="*{#strings.equals( useYn, 'Y' )}" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="useYn" class="col-sm-2 control-label">delYn 설정</label>
+				<div class="col-sm-10" style="margin-top: 10px;">
+					<input type="checkbox" th:value="*{delYn}" id="delYn"
+						   name="delYn" th:checked="*{#strings.equals( delYn, 'N' )}" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="title" class="col-sm-2 control-label">regId</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{regId}" class="form-control"
+						   placeholder="regId" value="system"/>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="title" class="col-sm-2 control-label">modId</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{modId}" class="form-control"
+						   placeholder="modId" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="title" class="col-sm-2 control-label">picNm</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{picNm}" class="form-control"
+						   placeholder="picNm" value="system"/>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="title" class="col-sm-2 control-label">picTel</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{picTel}" class="form-control"
+						   placeholder="picTel" value="system"/>
+				</div>
+			</div>
+
 
 			<div class="btn_wrap text-center" th:object="${params}">
 			  <a th:href="|@{/comCost/list.do}*{makeQueryString(currentPageNo)}|" class="btn btn-default waves-effect waves-light">뒤로가기</a>

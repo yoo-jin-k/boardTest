@@ -83,7 +83,7 @@
         , #{email}
         , 0
         , #{rmk}
-        , 'Y'
+        , IFNULL(#{delYn, jdbcType=VARCHAR}, 'Y')
         , IFNULL(#{delYn, jdbcType=VARCHAR}, 'N')
         , 'system'
         , NOW()
