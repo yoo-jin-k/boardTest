@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="comCost/layout/basic">
+	<th:block layout:fragment="title">
+		<title>list page</title>
+	</th:block>
+    <link rel="stylesheet" media="screen, print" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" media="screen, print" th:href="@{/plugin/mCustomScrollbar/jquery.mCustomScrollbar.min.css}" />
+
+    <div id="adv-search" class="input-group">
+<!--      <input type="text" id="mainSearchKeyword" class="form-control" th:value="${params.searchKeyword}" placeholder="키워드를 입력해 주세요." />-->
+      <div class="input-group-btn">
+        <div class="btn-group" role="group">
+          <div class="dropdown dropdown-lg">
+<!--            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>-->
+            <div class="dropdown-menu dropdown-menu-right" role="menu">
+              <!--/* 검색 form */-->
+              <form id="searchForm" th:action="@{/comCost/list.do}" method="get" th:onsubmit="return searchComCost(this)" class="form-horizontal" role="form">
+                <!-- /* 현재 페이지 번호, 페이지당 출력할 데이터 개수, 페이지 하단에 출력할 페이지 개수 Hidden 파라미터 */ -->
+                <input type="hidden" name="currentPageNo" value="1" />
+                <input type="hidden" name="recordsPerPage" th:value="${params.recordsPerPage}" />
+                <input type="hidden" name="pageSize" th:value="${params.pageSize}" />
+
+                <div class="form-group">
+                  <label for="filter">검색 유형</label>
+                  <select name="searchType" class="form-control">
+                    <option value="" th:selected="${#strings.isEmpty( params.searchType )}">all</option>
+                    <option value="custNm" th:selected="${#strings.equals( params.searchType, 'custNm' )}">custNm</option>
+                    <option value="abbrNm" th:selected="${#strings.equals( params.searchType, 'abbrNm' )}">abbrNm</option>
+                    <option value="ceoNm" th:selected="${#strings.equals( params.searchType, 'ceoNm' )}">ceoNm</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="contain">키워드</label>
+                  <input type="text" name="searchKeyword" class="form-control" th:value="${params.searchKeyword}" placeholder="키워드를 입력해 주세요." />
+                </div>
+                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true">search</span></button>
+              </form>
+            </div>
+          </div>
+<!--          <button type="button" class="btn btn-primary" onclick="searchComCost(null)"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>-->
+        </div>
+      </div>
+    </div>
+
+  <th:block layout:fragment="content">
+    <div class="table-responsive clearfix">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>bizCd</th>
+            <th>custCd</th>
+            <th>custNm</th>
+            <th>abbrNm</th>
+            <th>bizregNo</th>
+              <th>bizType</th>
+              <th>ceoNm</th>
+              <th>compNm</th>
+              <th>addr1</th>
+              <th>addr2</th>
+              <th>zipCd</th>
+              <th>tel1</th>
+              <th>tel2</th>
+              <th>fax</th>
+              <th>email</th>
+              <th>orderNum</th>
+              <th>rmk</th>
+              <th>useYn</th>
+              <th>delYn</th>
+              <th>regId</th>
+              <th>regDt</th>
+              <th>modId</th>
+              <th>modDt</th>
+              <th>picNm</th>
+              <th>picTel</th>
+          </tr>
+        </thead>
+				<tbody>
+          <tr th:if="${not #lists.isEmpty( comCostList )}" th:each="row : ${comCostList}">
+              <td th:text="${row.bizCd}"></td>
+              <td th:text="${row.custCd}"></td>
+              <td class="text-left">
+              <a th:href="|@{/comCost/view.do}${params.makeQueryString(params.currentPageNo)}&idx=${row.custCd}|" th:text="${row.custNm}"></a>
+            </td>
+
+            <td th:text="${row.abbrNm}"></td>
+              <td th:text="${row.bizregNo}"></td>
+              <td th:text="${row.bizType}"></td>
+              <td th:text="${row.ceoNm}"></td>
+              <td th:text="${row.compNm}"></td>
+              <td th:text="${row.addr1}"></td>
+              <td th:text="${row.addr2}"></td>
+              <td th:text="${row.zipCd}"></td>
+              <td th:text="${row.tel1}"></td>
+              <td th:text="${row.tel2}"></td>
+              <td th:text="${row.fax}"></td>
+              <td th:text="${row.email}"></td>
+              <td th:text="${row.orderNum}"></td>
+              <td th:text="${row.rmk}"></td>
+              <td th:text="${row.useYn}"></td>
+              <td th:text="${row.delYn}"></td>
+              <td th:text="${row.regId}"></td>
+<!--              <td th:text="${#dates.format( row.regDt, 'yyyy-MM-dd HH:mm:ss' )}"></td>-->
+              <td th:text="${row.modId}"></td>
+<!--              <td th:text="${#dates.format( row.modDt, 'yyyy-MM-dd HH:mm:ss' )}"></td>-->
+              <td th:text="${row.picNm}"></td>
+              <td th:text="${row.picTel}"></td>
+          </tr>
+          <tr th:unless="${not #lists.isEmpty( comCostList )}">
+            <td colspan="5">조회된 결과가 없습니다.</td>
+          </tr>
+        </tbody>
+			</table>
+
+			<div class="btn_wrap text-right">
+        <a th:href="@{/comCost/write.do}" class="btn btn-primary waves-effect waves-light">Write</a>
+      </div>
+
+      <th:block layout:fragment="paging">
+        <nav th:replace="comCost/fragments/common :: pagination">
+        </nav>
+      </th:block>
+    </div>
+  </th:block>
+  
+  <th:block layout:fragment="script">
+    <script th:inline="javascript">
+      /*<![CDATA[*/
+
+      function movePage(uri, queryString) {
+        location.href = uri + queryString;
+      }
+
+      function searchComCost(form) {
+        /*[- 드롭다운이 아닌 메인 검색 키워드로 검색했을 때 -]*/
+        if (isEmpty(form) == true) {
+          var searchKeyword = document.getElementById("mainSearchKeyword");
+          if (isEmpty(searchKeyword.value) == true) {
+            alert("키워드를 입력해 주세요.");
+            searchKeyword.focus();
+            return false;
+          }
+
+          form = document.getElementById("searchForm");
+          form.searchKeyword.value = searchKeyword.value;
+          form.submit();
+        }
+
+        if (isEmpty(form.searchKeyword.value) == true) {
+          alert("키워드를 입력해 주세요.");
+          form.searchKeyword.focus();
+          return false;
+        }
+      }
+        
+      /*]]>*/
+    </script>
+  </th:block>
+<script>
+  function searchComCost(form) {
+    /*[- 드롭다운이 아닌 메인 검색 키워드로 검색했을 때 -]*/
+    if (isEmpty(form) == true) {
+      var searchKeyword = document.getElementById("mainSearchKeyword");
+      if (isEmpty(searchKeyword.value) == true) {
+        alert("키워드를 입력해 주세요.");
+        searchKeyword.focus();
+        return false;
+      }
+
+      form = document.getElementById("searchForm");
+      form.searchKeyword.value = searchKeyword.value;
+      form.submit();
+    }
+
+    if (isEmpty(form.searchKeyword.value) == true) {
+      alert("키워드를 입력해 주세요.");
+      form.searchKeyword.focus();
+      return false;
+    }
+  }
+</script>
+    <script th:src="@{/scripts/jquery.min.js}"></script>
+    <script th:src="@{/plugin/bootstrap/js/bootstrap.min.js}"></script>
+    <script th:src="@{/plugin/mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js}"></script>
+    <script th:src="@{/plugin/common/moment.js}"></script>
+
+    <script th:src="@{/scripts/main.js}"></script>
+    <script th:src="@{/scripts/common.js}"></script>
+</html>
