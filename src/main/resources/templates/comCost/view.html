@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="comCost/layout/basic">
+  <th:block layout:fragment="title">
+    <title>view page</title>
+  </th:block>
+  <link rel="stylesheet" media="screen, print" th:href="@{/css/style.css}" />
+  <link rel="stylesheet" media="screen, print" th:href="@{/plugin/mCustomScrollbar/jquery.mCustomScrollbar.min.css}" />
+  
+  <th:block layout:fragment="content">
+    <div class="card-content">
+      <form class="form-horizontal form-view" th:object="${comCost}">
+          <div class="form-group">
+              <label for="inp-type-1" class="col-sm-2 control-label">bizCd</label>
+              <div class="col-sm-10">
+                  <p class="form-control" th:text="*{bizCd}"></p>
+              </div>
+          </div>
+
+        <div class="form-group">
+          <label for="inp-type-1" class="col-sm-2 control-label">custCd</label>
+          <div class="col-sm-10">
+            <p class="form-control" th:text="*{custCd}"></p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="inp-type-2" class="col-sm-2 control-label">custNm</label>
+          <div class="col-sm-10">
+            <p class="form-control" th:text="*{custNm}"></p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="inp-type-5" class="col-sm-2 control-label">abbrNm</label>
+          <div class="col-sm-10">
+            <p class="form-control" th:text="*{abbrNm}"></p>
+          </div>
+        </div>
+
+          <div class="form-group">
+              <label for="inp-type-2" class="col-sm-2 control-label">bizregNo</label>
+              <div class="col-sm-10">
+                  <p class="form-control" th:text="*{bizregNo}"></p>
+              </div>
+          </div>
+
+          <div class="form-group">
+              <label for="inp-type-5" class="col-sm-2 control-label">bizType</label>
+              <div class="col-sm-10">
+                  <p class="form-control" th:text="*{bizType}"></p>
+              </div>
+          </div>
+
+          <div class="form-group">
+              <label for="inp-type-5" class="col-sm-2 control-label">ceoNm</label>
+              <div class="col-sm-10">
+                  <p class="form-control" th:text="*{ceoNm}"></p>
+              </div>
+          </div>
+
+          <div class="form-group">
+              <label for="inp-type-5" class="col-sm-2 control-label">compNm</label>
+              <div class="col-sm-10">
+                  <p class="form-control" th:text="*{compNm}"></p>
+              </div>
+          </div>
+
+          <div class="form-group">
+              <label for="inp-type-5" class="col-sm-2 control-label">addr1</label>
+              <div class="col-sm-10">
+                  <p class="form-control" th:text="*{addr1}"></p>
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="inp-type-5" class="col-sm-2 control-label">addr2</label>
+              <div class="col-sm-10">
+                  <p class="form-control" th:text="*{addr2}"></p>
+              </div>
+          </div>
+
+          <div class="form-group">
+              <label for="inp-type-5" class="col-sm-2 control-label">zipCd</label>
+              <div class="col-sm-10">
+                  <p class="form-control" th:text="*{zipCd}"></p>
+              </div>
+          </div>
+
+          <div class="form-group">
+              <label for="inp-type-5" class="col-sm-2 control-label">tel1</label>
+              <div class="col-sm-10">
+                  <p class="form-control" th:text="*{tel1}"></p>
+              </div>
+          </div>
+
+          <div class="form-group">
+              <label for="inp-type-5" class="col-sm-2 control-label">tel2</label>
+              <div class="col-sm-10">
+                  <p class="form-control" th:text="*{tel2}"></p>
+              </div>
+          </div>
+
+          <div class="form-group">
+              <label for="inp-type-5" class="col-sm-2 control-label">fax</label>
+              <div class="col-sm-10">
+                  <p class="form-control" th:text="*{fax}"></p>
+              </div>
+          </div>
+
+          <div class="form-group">
+              <label for="inp-type-5" class="col-sm-2 control-label">orderNum</label>
+              <div class="col-sm-10">
+                  <p class="form-control" th:text="*{orderNum}"></p>
+              </div>
+          </div>
+
+          <div class="form-group">
+              <label for="inp-type-5" class="col-sm-2 control-label">rmk</label>
+              <div class="col-sm-10">
+                  <p class="form-control" th:text="*{rmk}"></p>
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="inp-type-5" class="col-sm-2 control-label">useYn</label>
+              <div class="col-sm-10">
+                  <p class="form-control" th:text="*{useYn}"></p>
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="inp-type-5" class="col-sm-2 control-label">delYn</label>
+              <div class="col-sm-10">
+                  <p class="form-control" th:text="*{delYn}"></p>
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="inp-type-5" class="col-sm-2 control-label">regId</label>
+              <div class="col-sm-10">
+                  <p class="form-control" th:text="*{regId}"></p>
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="inp-type-5" class="col-sm-2 control-label">regDt</label>
+              <div class="col-sm-10">
+                  <p class="form-control" th:text="*{#temporals.format( regDt, 'yyyy-MM-dd' )}"></p>
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="inp-type-5" class="col-sm-2 control-label">modId</label>
+              <div class="col-sm-10">
+                  <p class="form-control" th:text="*{modId}"></p>
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="inp-type-5" class="col-sm-2 control-label">modDt</label>
+              <div class="col-sm-10">
+                  <p class="form-control" th:text="*{modDt}"></p>
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="inp-type-5" class="col-sm-2 control-label">picNm</label>
+              <div class="col-sm-10">
+                  <p class="form-control" th:text="*{picNm}"></p>
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="inp-type-5" class="col-sm-2 control-label">picTel</label>
+              <div class="col-sm-10">
+                  <p class="form-control" th:text="*{picTel}"></p>
+              </div>
+          </div>
+
+      </form>
+      
+      <div class="btn_wrap text-center" th:object="${params}">
+			  <a th:href="|@{/comCost/list.do}*{makeQueryString(currentPageNo)}|" class="btn btn-primary waves-effect waves-light">뒤로가기</a>
+			  <a th:href="|@{/comCost/write.do}*{makeQueryString(currentPageNo)}&idx=${comCost.custCd}|" class="btn btn-primary waves-effect waves-light">수정하기</a>
+			  <button type="button" class="btn waves-effect waves-light" th:onclick="deleteComCost([[ ${comCost.custCd} ]], [[ *{makeQueryString(currentPageNo)} ]])">삭제하기</button>
+			</div>
+
+    </div>
+  </th:block>
+
+  <th:block layout:fragment="add-content">
+    <div class="box-content">
+      <div class="card-content">
+        <div class="clearfix">
+          <h4 class="box-title pull-left">Comment</h4>
+        </div>
+
+        <form class="form-horizontal form-view">
+				  <div class="input-group margin-bottom-20">
+				    <input type="text" id="content" class="form-control" />
+				    <div class="input-group-btn">
+				      <button type="button" class="btn waves-effect waves-light" th:onclick="insertComment([[ ${comCost.custCd} ]])">
+				      <i class="fa fa-commenting" aria-hidden="true"></i>
+				      </button>
+				    </div>
+				  </div>
+				  <ul class="notice-list"></ul>
+				</form>
+				
+      </div>
+    </div>
+  </th:block>
+  
+  <th:block layout:fragment="script">
+    <script th:inline="javascript">
+      /*<![CDATA[*/
+      $(function() {
+		    printCommentList();
+		  });
+      
+      function openModal(idx, writer, content) {
+
+    	    $("#commentModal").modal("toggle");
+
+    	    document.getElementById("modalCustNm").value = custNm;
+    	    document.getElementById("modalAbbrNm").value = abbrNm;
+
+
+
+    	    document.getElementById("btnCommentUpdate").setAttribute("onclick", "updateComment("+ custCd +")");
+    	    document.getElementById("btnCommentDelete").setAttribute("onclick", "deleteComment("+ custCd +")");
+    	}
+      
+      function insertComment(comCostCustCd) {
+
+    	  var content = document.getElementById("content");
+    	  if (isEmpty(content.value) == true) {
+    	    content.setAttribute("placeholder", "댓글을 입력해 주세요.");
+    	    content.focus();
+    	    return false;
+    	  }
+
+    	  var uri = /*[[ @{/comments} ]]*/ null;
+    	  var headers = {"Content-Type": "application/json", "X-HTTP-Method-Override": "POST"};
+    	  var params = {"comCostCustCd": comCostCustCd, "content": content.value, "writer": "관리자"};
+
+    	  $.ajax({
+    	    url: uri,
+    	    type: "POST",
+    	    headers: headers,
+    	    dataType: "json",
+    	    data: JSON.stringify(params),
+    	    success: function(response) {
+    	      if (response.result == false) {
+    	        alert("댓글 등록에 실패하였습니다.");
+    	        return false;
+    	      }
+
+    	      printCommentList();
+    	      content.value = "";
+    	    },
+    	    error: function(xhr, status, error) {
+    	      alert("에러가 발생하였습니다.");
+    	      return false;
+    	    }
+    	  });
+    	}
+      
+      function updateComment(idx) {
+
+    	  // var custNm = document.getElementById("modalCustNm");
+    	  // var abbrNm = document.getElementById("modalAbbrNm");
+          //
+          // var bizregNo = document.getElementById("modalbizregNo");
+          // var bizType = document.getElementById("modalBizType");
+          // var ceoNm = document.getElementById("modalCeoNm");
+          // var compNm = document.getElementById("modalCompNm");
+          // var addr1 = document.getElementById("modalWriter");
+          // var addr2 = document.getElementById("modalContent");
+          // var zipCd = document.getElementById("modalWriter");
+          // var tel1 = document.getElementById("modalContent");
+          // var tel2 = document.getElementById("modalWriter");
+          // var fax = document.getElementById("modalContent");
+          // var email = document.getElementById("modalWriter");
+          // var orderNum = document.getElementById("modalContent");
+          // var rmk = document.getElementById("modalWriter");
+
+
+
+
+    	  var uri = /*[[ @{/comments/} ]]*/ + idx;
+    	  var headers = {"Content-Type": "application/json", "X-HTTP-Method-Override": "PATCH"};
+    	  var params = {
+              // "custCd": custCd,
+              // "custNm": custNm.value,
+              // "abbrNm": abbrNm.value,
+              // "bizregNo": bizregNo.value,
+              // "bizType": bizType.value,
+              // "writer": writer.value,
+              // "content": content.value,
+              // "writer": writer.value,
+              // "content": content.value,
+              // "writer": writer.value,
+              // "content": content.value,
+              // "writer": writer.value,
+              // "content": content.value,
+              // "writer": writer.value,
+              // "content": content.value,
+              // "writer": writer.value,
+              // "content": content.value,
+              // "writer": writer.value,
+              // "content": content.value,
+              // "writer": writer.value,
+              // "content": content.value,
+              // "writer": writer.value,
+              // "content": content.value,
+              // "writer": writer.value,
+              // "content": content.value,
+              // "writer": writer.value,
+              // "content": content.value,
+              // "writer": writer.value,
+              // "content": content.value,
+          };
+    	  
+    	  $.ajax({
+    	    url: uri,
+    	    type: "PATCH",
+    	    headers: headers,
+    	    dataType: "json",
+    	    data: JSON.stringify(params),
+    	    success: function(response) {
+    	      if (response.result == false) {
+    	        alert("댓글 수정에 실패하였습니다.");
+    	        return false;
+    	      }
+
+    	      printCommentList();
+    	      $("#commentModal").modal("hide");
+    	    },
+    	    error: function(xhr, status, error) {
+    	      alert("에러가 발생하였습니다.");
+    	      return false;
+    	    }
+    	  });
+    	}
+      
+      function deleteComment(idx) {
+
+    	  if (!confirm('댓글을 삭제하시겠어요?')) {
+    	    return false;
+    	  }
+
+    	  var uri = [[ @{/comments/} ]] + idx;
+    	  var headers = {"Content-Type": "application/json", "X-HTTP-Method-Override": "DELETE"};
+    	  
+    	  $.ajax({
+    	    url: uri,
+    	    type: "DELETE",
+    	    headers: headers,
+    	    dataType: "json",
+    	    success: function(response) {
+    	      if (response.result == false) {
+    	        alert("댓글 삭제에 실패하였습니다.");
+    	        return false;
+    	      }
+
+    	      printCommentList();
+    	      $("#commentModal").modal("hide");
+    	    },
+    	    error: function(xhr, status, error) {
+    	      alert("에러가 발생하였습니다."+ xhr );
+    	      console.log(xhr);
+    	      return false;
+    	    }
+    	  });
+    	}
+		  
+      function deleteComCost(custCd, queryString) {
+
+			  if (confirm(custCd + "번 게시글을 삭제할까요?")) {
+			    var uri = /*[[ @{/comCost/delete.do} ]]*/null;
+			    var html = "";
+			
+			    html += '<form name="dataForm" action="'+uri+'" method="post">';
+			    html += '<input type="hidden" name="custCd" value="'+custCd+'" />';
+			
+			    /*[- 쿼리 스트링을 오브젝트 형태로 변환 -]*/
+			    queryString = new URLSearchParams(queryString);
+			    queryString.forEach(function(value, key) {
+			      if (isEmpty(value) == false) {
+			        html += '<input type="hidden" name="' + key + '" value="' + value + '" />';
+			      }
+			    });
+			
+			    html += '</form>';
+			
+			    $("body").append(html);
+			    document.dataForm.submit();
+			  }
+			}
+
+      /*]]>*/
+    </script>
+  </th:block>
+  
+</html>
