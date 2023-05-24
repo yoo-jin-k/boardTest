@@ -172,7 +172,7 @@
       
       <div class="btn_wrap text-center" th:object="${params}">
 			  <a th:href="|@{/comCost/list.do}*{makeQueryString(currentPageNo)}|" class="btn btn-primary waves-effect waves-light">뒤로가기</a>
-			  <a th:href="|@{/comCost/write.do}*{makeQueryString(currentPageNo)}&idx=${comCost.custCd}|" class="btn btn-primary waves-effect waves-light">수정하기</a>
+			  <a th:href="|@{/comCost/write.do}*{makeQueryString(currentPageNo)}&custCd=${comCost.custCd}|" class="btn btn-primary waves-effect waves-light">수정하기</a>
 			  <button type="button" class="btn waves-effect waves-light" th:onclick="deleteComCost([[ ${comCost.custCd} ]], [[ *{makeQueryString(currentPageNo)} ]])">삭제하기</button>
 			</div>
 

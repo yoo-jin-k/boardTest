@@ -46,7 +46,7 @@ public class ComCostController {
 
     @PostMapping({"/comCost/register.do"})
     public String registerComCost(@ModelAttribute("params") final ComCostDTO params, Model model) {
-        Map<String, Object> pagingParams = getPagingParams(params);
+//        Map<String, Object> pagingParams = getPagingParams(params);
         try {
             boolean isRegistered = comCostService.registerComCost(params);
             if (isRegistered == false) {
@@ -85,11 +85,11 @@ public class ComCostController {
     }
 
     @PostMapping({"/comCost/delete.do"})
-    public String deleteBoard(@ModelAttribute("params") ComCostDTO params,@RequestParam(value = "custCd",required = false) String custCd) {
+    public String deleteComCost(@ModelAttribute("params") ComCostDTO params,@RequestParam(value = "custCd",required = false) String custCd) {
         if (custCd == null) {
             return "redirect:/board/list.do";
         }
-        Map<String, Object> pagingParams = getPagingParams(params);
+//        Map<String, Object> pagingParams = getPagingParams(params);
         try {
             boolean isDeleted = comCostService.deleteComCost(custCd);
             if (isDeleted == false) {
@@ -107,17 +107,17 @@ public class ComCostController {
 
 
 
-    public Map<String, Object> getPagingParams(Criteria criteria) {
-
-        Map<String, Object> params = new LinkedHashMap<>();
-        params.put("currentPageNo", criteria.getCurrentPageNo());
-        params.put("recordsPerPage", criteria.getRecordsPerPage());
-        params.put("pageSize", criteria.getPageSize());
-        params.put("searchType", criteria.getSearchType());
-        params.put("searchKeyword", criteria.getSearchKeyword());
-
-        return params;
-    }
+//    public Map<String, Object> getPagingParams(Criteria criteria) {
+//
+//        Map<String, Object> params = new LinkedHashMap<>();
+//        params.put("currentPageNo", criteria.getCurrentPageNo());
+//        params.put("recordsPerPage", criteria.getRecordsPerPage());
+//        params.put("pageSize", criteria.getPageSize());
+//        params.put("searchType", criteria.getSearchType());
+//        params.put("searchKeyword", criteria.getSearchKeyword());
+//
+//        return params;
+//    }
 
 
 }

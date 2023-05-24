@@ -90,11 +90,10 @@
             idx = #{idx}
     </update>
 
-    <update id="deleteBoard" parameterType="long">
-        UPDATE board
-        SET
+    <update id="deleteBoard" parameterType="BoardDTO">
+        UPDATE board SET
             delete_yn = 'Y'
-          , delete_time = NOW()
+          , delete_time = SYSDATE()
         WHERE
             idx = #{idx}
     </update>

@@ -99,7 +99,8 @@
               <td th:text="${row.useYn}"></td>
               <td th:text="${row.delYn}"></td>
               <td th:text="${row.regId}"></td>
-<!--              <td th:text="${#dates.format( row.regDt, 'yyyy-MM-dd HH:mm:ss' )}"></td>-->
+              <!-- todo.-->
+              <td th:text="|${#temporals.createDate( row.regDt, 'yyyyMMdd' )}|"></td>
               <td th:text="${row.modId}"></td>
 <!--              <td th:text="${#dates.format( row.modDt, 'yyyy-MM-dd HH:mm:ss' )}"></td>-->
               <td th:text="${row.picNm}"></td>
