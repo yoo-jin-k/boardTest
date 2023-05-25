@@ -4,31 +4,31 @@
 <mapper namespace="com.board.boardTest.mapper.ComCostMapper">
 
     <sql id="comCostColumns">
-        CUST.BIZ_CD
-        , CUST.CUST_CD
-            , CUST.CUST_NM
-            , CUST.ABBR_NM
-            , CUST.BIZREG_NO
-            , CUST.BIZ_TYPE
-            , CUST.CEO_NM
-            , CUST.COMP_NM
-            , CUST.ADDR1
-            , CUST.ADDR2
-            , CUST.ZIP_CD
-            , CUST.TEL1
-            , CUST.TEL2
-            , CUST.FAX
-            , CUST.EMAIL
-            , CUST.ORDER_NUM
-            , CUST.RMK
-            , CUST.USE_YN
-            , CUST.DEL_YN
-            , CUST.REG_ID
-            , CUST.REG_DT
-            , CUST.MOD_ID
-            , CUST.MOD_DT
-            , CUST.PIC_NM
-            , CUST.PIC_TEL
+        BIZ_CD
+        , CUST_CD
+            , CUST_NM
+            , ABBR_NM
+            , BIZREG_NO
+            , BIZ_TYPE
+            , CEO_NM
+            , COMP_NM
+            , ADDR1
+            , ADDR2
+            , ZIP_CD
+            , TEL1
+            , TEL2
+            , FAX
+            , EMAIL
+            , ORDER_NUM
+            , RMK
+            , USE_YN
+            , DEL_YN
+            , REG_ID
+            , REG_DT
+            , MOD_ID
+            , MOD_DT
+            , PIC_NM
+            , PIC_TEL
     </sql>
 
     <sql id="search_c">
@@ -39,13 +39,13 @@
                 <when test="searchType != null and searchType != ''">
                     <choose>
                         <when test="'custNm'.equals(searchType)">
-                            CUST.CUST_NM LIKE CONCAT('%', #{searchKeyword}, '%')
+                            CUST_NM LIKE CONCAT('%', #{searchKeyword}, '%')
                         </when>
                         <when test="'abbrNm'.equals(searchType)">
-                            AND CUST.ABBR_NM LIKE CONCAT('%', #{searchKeyword}, '%')
+                            AND ABBR_NM LIKE CONCAT('%', #{searchKeyword}, '%')
                         </when>
                         <when test="'ceoNm'.equals(searchType)">
-                            AND CUST.CEO_NM LIKE CONCAT('%', #{searchKeyword}, '%')
+                            AND CEO_NM LIKE CONCAT('%', #{searchKeyword}, '%')
                         </when>
                     </choose>
                 </when>
@@ -53,17 +53,17 @@
                 <otherwise>
 
                     (
-                    CUST.CUST_NM LIKE CONCAT('%', #{searchKeyword}, '%')
-                    OR CUST.ABBR_NM LIKE CONCAT('%', #{searchKeyword}, '%')
-                    OR CUST.CEO_NM LIKE CONCAT('%', #{searchKeyword}, '%')
+                    CUST_NM LIKE CONCAT('%', #{searchKeyword}, '%')
+                    OR ABBR_NM LIKE CONCAT('%', #{searchKeyword}, '%')
+                    OR CEO_NM LIKE CONCAT('%', #{searchKeyword}, '%')
                     )
                 </otherwise>
             </choose>
         </if>
     </sql>
 
-    <insert id="insertComCost" parameterType="ComCostDTO" keyProperty="custCd">
-        INSERT INTO TB_COM_CUST CUST (
+    <insert id="insertComCost">
+        INSERT INTO TB_COM_CUST (
         <include refid="comCostColumns" />
         ) VALUES (
         #{bizCd}
@@ -81,12 +81,12 @@
         , #{tel2}
         , #{fax}
         , #{email}
-        , 0
+        , #{orderNum}
         , #{rmk}
-        , IFNULL(#{delYn, jdbcType=VARCHAR}, 'Y')
-        , IFNULL(#{delYn, jdbcType=VARCHAR}, 'N')
-        , 'system'
-        , DATE_FORMET(#{regDt}, '%Y%m%d')
+        , #{useYn}
+        , #{delYn}
+        , #{regId}
+        , NOW()
         , #{modId}
         , NULL
         , #{picNm}
@@ -98,36 +98,36 @@
         SELECT
         <include refid="comCostColumns" />
         FROM
-        TB_COM_CUST CUST
+        TB_COM_CUST
         WHERE
-        CUST.CUST_CD = #{custCd}
+        CUST_CD = #{custCd}
     </select>
 
     <update id="updateComCost" parameterType="ComCostDTO">
         UPDATE
             TB_COM_CUST CUST
         SET
-           CUST.CUST_NM = #{custNm}
-          , CUST.ABBR_NM = #{abbrNm}
-          , CUST.BIZREG_NO = #{bizregNo}
-          , CUST.BIZ_TYPE = #{bizType}
-          , CUST.CEO_NM = #{ceoNm}
-          , CUST.COMP_NM = #{compNm}
-          , CUST.ADDR1 = #{addr1}
-          , CUST.ADDR2 = #{addr2}
-          , CUST.ZIP_CD = #{zipCd}
-          , CUST.TEL1 = #{tel1}
-          , CUST.TEL2 = #{tel2}
-          , CUST.FAX = #{fax}
-          , CUST.EMAIL = #{email}
-          , CUST.ORDER_NUM = 0
-          , CUST.RMK = #{rmk}
-          , CUST.USE_YN = IFNULL(#{useYn, jdbcType=VARCHAR}, 'Y')
-          , CUST.DEL_YN = IFNULL(#{delYn, jdbcType=VARCHAR}, 'N')
-          , CUST.MOD_ID = #{modId}
-          , CUST.MOD_DT = NOW()
-          , CUST.PIC_NM = #{picNm}
-          , CUST.PIC_TEL = #{picTel}
+           CUST_NM = #{custNm}
+          , ABBR_NM = #{abbrNm}
+          , BIZREG_NO = #{bizregNo}
+          , BIZ_TYPE = #{bizType}
+          , CEO_NM = #{ceoNm}
+          , COMP_NM = #{compNm}
+          , ADDR1 = #{addr1}
+          , ADDR2 = #{addr2}
+          , ZIP_CD = #{zipCd}
+          , TEL1 = #{tel1}
+          , TEL2 = #{tel2}
+          , FAX = #{fax}
+          , EMAIL = #{email}
+          , ORDER_NUM = 0
+          , RMK = #{rmk}
+          , USE_YN = IFNULL(#{useYn, jdbcType=VARCHAR}, 'Y')
+          , DEL_YN = IFNULL(#{delYn, jdbcType=VARCHAR}, 'N')
+          , MOD_ID = #{modId}
+          , MOD_DT = NOW()
+          , PIC_NM = #{picNm}
+          , PIC_TEL = #{picTel}
         WHERE
             CUST.CUST_CD = #{custCd}
     </update>
@@ -136,21 +136,21 @@
         UPDATE
             TB_COM_CUST CUST
         SET
-            CUST.DEL_YN = 'Y'
+            DEL_YN = 'Y'
         WHERE
-            CUST.CUST_CD = #{custCd}
+            CUST_CD = #{custCd}
     </update>
 
     <select id="selectComCostList" parameterType="ComCostDTO" resultType="ComCostDTO">
         SELECT
         <include refid="comCostColumns" />
         FROM
-        TB_COM_CUST CUST
+        TB_COM_CUST
         <where>
         <include refid="search_c" />
         </where>
         ORDER BY
-        CUST.CUST_NM DESC
+        CUST_NM DESC
         LIMIT #{paginationInfo.firstRecordIndex}, #{recordsPerPage}
     </select>
 
@@ -158,13 +158,13 @@
         SELECT
             COUNT(*)
         FROM
-        TB_COM_CUST CUST
+        TB_COM_CUST
         <if test="searchKeyword != null">
             WHERE
            (
-            CUST.CUST_NM LIKE CONCAT('%', #{searchKeyword}, '%')
-                OR CUST.ABBR_NM LIKE CONCAT('%', #{searchKeyword}, '%')
-                OR CUST.CEO_NM LIKE CONCAT('%', #{searchKeyword}, '%')
+            CUST_NM LIKE CONCAT('%', #{searchKeyword}, '%')
+                OR ABBR_NM LIKE CONCAT('%', #{searchKeyword}, '%')
+                OR CEO_NM LIKE CONCAT('%', #{searchKeyword}, '%')
             )
         </if>
     </select>

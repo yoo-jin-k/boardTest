@@ -45,19 +45,21 @@ public class ComCostController {
     }
 
     @PostMapping({"/comCost/register.do"})
-    public String registerComCost(@ModelAttribute("params") final ComCostDTO params, Model model) {
+    public String registerComCost(ComCostDTO params, Model model) {
 //        Map<String, Object> pagingParams = getPagingParams(params);
-        try {
-            boolean isRegistered = comCostService.registerComCost(params);
-            if (isRegistered == false) {
-                return "redirect:/comCost/list.do";
-            }
-        } catch (DataAccessException e) {
-            return "redirect:/comCost/list.do";
-        } catch (Exception e) {
-            return "redirect:/comCost/list.do";
-        }
+//        try {
+//            boolean isRegistered = comCostService.registerComCost(params);
+//            if (isRegistered == false) {
+//                return "redirect:/comCost/list.do";
+//            }
+//        } catch (DataAccessException e) {
+//            return "redirect:/comCost/list.do";
+//        } catch (Exception e) {
+//            return "redirect:/comCost/list.do";
+//        }
 
+//        return "redirect:/comCost/list.do";
+        comCostService.registerComCost(params);
         return "redirect:/comCost/list.do";
     }
 

@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
 
@@ -17,17 +19,35 @@ public class ComCostServiceImpl implements ComCostService {
     @Autowired
     private ComCostMapper comCostMapper;
 
+//    @Override
+//    public boolean registerComCost(ComCostDTO params) {
+//        int queryResult = 0;
+//
+//        if (params.getCustCd() == null) {
+//            queryResult = comCostMapper.insertComCost(params);
+//        } else {
+//            queryResult = comCostMapper.updateComCost(params);
+//        }
+//
+//        return (queryResult == 1) ? true : false;
+//    }
+
     @Override
-    public boolean registerComCost(ComCostDTO params) {
-        int queryResult = 0;
+    public ComCostDTO registerComCost(ComCostDTO params) {
+        String id = "CUST_";
+        LocalDate localDate = LocalDate.now();
+        String nowLocalData = localDate.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+        id = id + nowLocalData;
 
-        if (params.getCustCd() == null) {
-            queryResult = comCostMapper.insertComCost(params);
-        } else {
-            queryResult = comCostMapper.updateComCost(params);
-        }
+        ComCostDTO searchData = new ComCostDTO();
+        searchData.setRegDt(nowLocalData);
+        int i = comCostMapper.selectComCostTotalCount(searchData);
+        id = id + "_" + Integer.toString(Integer.parseInt(String.format("%3d", i).trim()));
 
-        return (queryResult == 1) ? true : false;
+        params.setCustCd(id);
+        comCostMapper.insertComCost(params);
+
+        return new ComCostDTO();
     }
 
     @Override

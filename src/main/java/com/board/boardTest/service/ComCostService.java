@@ -6,7 +6,7 @@ import com.board.boardTest.persistence.dto.ComCostDTO;
 import java.util.List;
 
 public interface ComCostService {
-    public boolean registerComCost(ComCostDTO params);
+    public ComCostDTO registerComCost(ComCostDTO params);
     public ComCostDTO getComCostDetail(String custCd);
     public boolean deleteComCost(String custCd);
     public List<ComCostDTO> getComCostList(ComCostDTO params);
