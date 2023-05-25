@@ -79,7 +79,7 @@
               <td th:text="${row.bizCd}"></td>
               <td th:text="${row.custCd}"></td>
               <td class="text-left">
-              <a th:href="|@{/comCost/view.do}${params.makeQueryString(params.currentPageNo)}&idx=${row.custCd}|" th:text="${row.custNm}"></a>
+              <a th:href="|@{/comCost/view.do}${params.makeQueryString(params.currentPageNo)}&custCd=${row.custCd}|" th:text="${row.custNm}"></a>
             </td>
 
             <td th:text="${row.abbrNm}"></td>
@@ -100,9 +100,11 @@
               <td th:text="${row.delYn}"></td>
               <td th:text="${row.regId}"></td>
               <!-- todo.-->
-              <td th:text="|${#temporals.createDate( row.regDt, 'yyyyMMdd' )}|"></td>
+<!--              <td th:text="|${#temporals.createDate( row.regDt, 'yyyyMMdd' )}|"></td>-->
+            <td th:text="${#temporals.createDate( row.regDt, 'yyyy-MM-dd HH:mm:ss' )}"></td>
               <td th:text="${row.modId}"></td>
 <!--              <td th:text="${#dates.format( row.modDt, 'yyyy-MM-dd HH:mm:ss' )}"></td>-->
+<!--            <td th:text="${#temporals.createDate( row.modDt, 'yyyy-MM-dd' )}"></td>-->
               <td th:text="${row.picNm}"></td>
               <td th:text="${row.picTel}"></td>
           </tr>

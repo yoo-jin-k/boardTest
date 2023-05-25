@@ -77,7 +77,7 @@ public class ComCostController {
         ComCostDTO comCost = comCostService.getComCostDetail(custCd);
 //        boardService.UpdateView(idx);
         if (comCost == null || "Y".equals(comCost.getDelYn())) {
-            return "redirect:/board/list.do";
+            return "redirect:/comCost/list.do";
         }
         model.addAttribute("comCost", comCost);
 
@@ -87,7 +87,7 @@ public class ComCostController {
     @PostMapping({"/comCost/delete.do"})
     public String deleteComCost(@ModelAttribute("params") ComCostDTO params,@RequestParam(value = "custCd",required = false) String custCd) {
         if (custCd == null) {
-            return "redirect:/board/list.do";
+            return "redirect:/comCost/list.do";
         }
 //        Map<String, Object> pagingParams = getPagingParams(params);
         try {

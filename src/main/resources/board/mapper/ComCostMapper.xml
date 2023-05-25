@@ -99,14 +99,15 @@
         <include refid="comCostColumns" />
         FROM
         TB_COM_CUST CUST
-        AND
+        WHERE
         CUST.CUST_CD = #{custCd}
     </select>
 
     <update id="updateComCost" parameterType="ComCostDTO">
-        UPDATE TB_COM_CUST CUST
+        UPDATE
+            TB_COM_CUST CUST
         SET
-          , CUST.CUST_NM = #{custNm}
+           CUST.CUST_NM = #{custNm}
           , CUST.ABBR_NM = #{abbrNm}
           , CUST.BIZREG_NO = #{bizregNo}
           , CUST.BIZ_TYPE = #{bizType}
@@ -132,7 +133,10 @@
     </update>
 
     <update id="deleteComCost" parameterType="String">
-        UPDATE TB_COM_CUST CUST
+        UPDATE
+            TB_COM_CUST CUST
+        SET
+            CUST.DEL_YN = 'Y'
         WHERE
             CUST.CUST_CD = #{custCd}
     </update>
