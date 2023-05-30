@@ -11,6 +11,8 @@ public interface ComCostService {
     public boolean deleteComCost(String custCd);
     public List<ComCostDTO> getComCostList(ComCostDTO params);
 
+    public void updateComCost(ComCostDTO params);
+
 
 
 

@@ -98,5 +98,9 @@ public class ComCostServiceImpl implements ComCostService {
         return comCostList;
     }
 
+    @Override
+    public void updateComCost(ComCostDTO params) {
+        comCostMapper.updateComCost(params);
+    }
 
 }

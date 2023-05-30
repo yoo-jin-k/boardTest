@@ -62,6 +62,20 @@ public class ComCostController {
         comCostService.registerComCost(params);
         return "redirect:/comCost/list.do";
     }
+    @RequestMapping("/comCost/modify.do")
+    public String modify(String custCd, Model model) {
+        model.addAttribute("comCost", comCostService.getComCostDetail(custCd));
+        model.addAttribute("comCost", "comCost/modify");
+        return "/comCost/update";
+    }
+
+    @RequestMapping("/comCost/update.do")
+    public String updateComCost(ComCostDTO params) {
+
+        ComCostDTO dto = comCostService.getComCostDetail(params.getCustCd());
+        comCostService.updateComCost(dto);
+        return "redirect:/comCost/list.do";
+    }
 
     @GetMapping({"/comCost/list.do"})
     public String openComCostList(Model model,@ModelAttribute("params") ComCostDTO params) {
